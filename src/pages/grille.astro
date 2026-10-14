@@ -1,0 +1,42 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const grid = `<div class="container py-3">
+  <div class="row g-3">
+    <div class="col-12 col-md-6 col-lg-4"><div class="p-3 bg-primary-subtle border">1</div></div>
+    <div class="col-12 col-md-6 col-lg-4"><div class="p-3 bg-primary-subtle border">2</div></div>
+    <div class="col-12 col-md-6 col-lg-4"><div class="p-3 bg-primary-subtle border">3</div></div>
+    <div class="col-12 col-md-6 col-lg-4"><div class="p-3 bg-primary-subtle border">4</div></div>
+    <div class="col-12 col-md-6 col-lg-4"><div class="p-3 bg-primary-subtle border">5</div></div>
+    <div class="col-12 col-md-6 col-lg-4"><div class="p-3 bg-primary-subtle border">6</div></div>
+  </div>
+</div>
+`;
+const over = `<div class="container py-3">
+  <div class="row g-3">
+    <div class="col-8"><div class="p-3 bg-primary-subtle border">col-8</div></div>
+    <div class="col-6"><div class="p-3 bg-warning-subtle border">col-6</div></div>
+  </div>
+</div>
+`;
+---
+<Base title="La grille">
+  <h1>La grille organise la page en douze colonnes</h1>
+  <p class="lead">Trois maillons, toujours dans le même ordre : <code>container</code>, puis <code>row</code>, puis des <code>col</code>.</p>
+
+  <h2>Douze unités par ligne</h2>
+  <p>Chaque ligne se découpe en 12 parts. On compose en distribuant ces 12 : <code>col-4</code> + <code>col-8</code> = une ligne pleine, <code>col-6</code> + <code>col-6</code> = deux moitiés. Douze se divise par 2, 3, 4 et 6 : moitiés, tiers, quarts et sixièmes tombent juste.</p>
+
+  <h2>Le responsive : des préfixes</h2>
+  <p>Un préfixe de point de rupture (<code>sm</code> ≥ 576 px, <code>md</code> ≥ 768 px, <code>lg</code> ≥ 992 px, <code>xl</code> ≥ 1200 px, <code>xxl</code> ≥ 1400 px) applique la classe à partir de cette largeur. On lit les classes du plus petit écran au plus grand : <code>col-12 col-md-6 col-lg-4</code> = pleine largeur sur mobile, moitié dès la tablette, un tiers dès le laptop.</p>
+  <p>Utilise les boutons de largeur pour voir les blocs passer de 1 à 2 puis 3 par ligne. Puis essaie : une colonne sur mobile, <strong>deux</strong> sur tablette et <strong>quatre</strong> sur grand écran.</p>
+  <LiveEditor initial={grid} widths height={560} />
+
+  <h2>Quand ça déborde</h2>
+  <p>Si la somme des <code>col-*</code> d'une ligne dépasse 12, le surplus passe à la ligne suivante. C'est voulu pour une grille de cartes (<code>col-md-4</code> répété six fois = deux lignes de trois), mais c'est aussi le symptôme d'un mauvais calcul. Ici 8 + 6 = 14 : que se passe-t-il ?</p>
+  <LiveEditor initial={over} height={240} />
+
+  <h2>Gouttières et alignement</h2>
+  <p>Les classes <code>g-0</code> à <code>g-5</code> posées sur la <code>row</code> règlent l'écart entre colonnes (<code>gx-*</code> à l'horizontale, <code>gy-*</code> à la verticale) : pas de marges à la main. Comme la <code>row</code> est un conteneur flex, <code>justify-content-*</code>, <code>align-items-*</code> et <code>offset-md-2</code> s'y appliquent aussi.</p>
+</Base>

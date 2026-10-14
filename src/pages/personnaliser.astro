@@ -1,0 +1,60 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const demo = `<div class="container py-3">
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title text-primary">Titre en couleur principale</h5>
+      <p class="card-text">Un paragraphe dans la police du corps de page.</p>
+      <button class="btn btn-primary">Bouton principal</button>
+    </div>
+  </div>
+</div>
+`;
+const css = `:root {
+  --bs-border-radius: 0.75rem;
+  --bs-body-font-family: Palatino, serif;
+}
+`;
+---
+<Base title="Personnaliser">
+  <h1>Personnaliser Bootstrap sans toucher à son fichier</h1>
+  <p class="lead">Deux interdits : éditer <code>bootstrap.min.css</code> (tout saute à la prochaine mise à jour) et empiler des <code>!important</code> (on se bat contre le framework). Deux bonnes voies existent.</p>
+
+  <h2>Voie 1 : les variables CSS, sans compilation</h2>
+  <p>On redéfinit les variables <code>--bs-*</code> dans <em>son propre</em> fichier CSS, chargé après Bootstrap. Ici le rayon des coins et la police changent immédiatement.</p>
+  <LiveEditor initial={demo} css={css} height={300} />
+
+  <h3>Attention : la couleur principale ne suit pas toute seule</h3>
+  <p>Ajoute <code>--bs-primary: #7952b3;</code> dans le CSS ci-dessus : rien ne change. Vérifié avec Bootstrap 5.3.8 : les classes comme <code>text-primary</code> lisent <code>--bs-primary-rgb</code>, et le bouton a ses propres variables fixées à la compilation. Essaie :</p>
+  <pre><code>:root &#123; --bs-primary: #7952b3; --bs-primary-rgb: 121, 82, 179; &#125;
+.btn-primary &#123; --bs-btn-bg: #7952b3; --bs-btn-border-color: #7952b3; &#125;</code></pre>
+  <p>Le titre prend la couleur avec la première ligne, le bouton avec la seconde. C'est la limite honnête de cette voie : pour recolorer tout le framework d'un coup, il faut la voie Sass.</p>
+
+  <h2>Voie 2 : les variables Sass, avant l'import</h2>
+  <pre><code>$primary: #7952b3;
+@import "bootstrap/scss/bootstrap";</code></pre>
+  <p>Sass recompile tout Bootstrap avec cette valeur : bouton, texte, fonds, liens. Il faut npm et un outil qui compile le Sass ; c'est la voie d'un projet avec charte graphique.</p>
+
+  <h2>N'importer que ce qu'on utilise</h2>
+  <p>Au lieu de tout importer, on ne charge que les modules utiles. Mesuré en compilant Bootstrap 5.3.8 (CSS minifié) : environ 234 Ko en entier, environ 32 Ko avec seulement la grille et les boutons.</p>
+  <pre><code>@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/buttons";</code></pre>
+  <p>Les neuf lignes sont nécessaires : <code>functions</code> et <code>grid</code> seuls ne compilent pas.</p>
+
+  <h2>Faut-il toujours prendre Bootstrap ?</h2>
+  <p>Oui pour un délai court sans graphiste, un outil interne, une équipe qui veut un vocabulaire commun. Non pour un design sur mesure au pixel près (on perd plus de temps à défaire Bootstrap qu'à écrire le CSS), un seul petit composant, ou un poids réseau critique alors qu'on n'utilise que la grille (CSS Grid natif suffit).</p>
+</Base>
+
+<style>
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 16px; border-radius: 12px; overflow-x: auto; }
+  pre code { background: none; color: inherit; font-size: 15px; }
+</style>

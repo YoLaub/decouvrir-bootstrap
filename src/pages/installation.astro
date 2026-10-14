@@ -1,0 +1,48 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const modal = `<button class="btn btn-primary m-3"
+        data-bs-toggle="modal" data-bs-target="#info">
+  Ouvrir la modale
+</button>
+
+<div class="modal fade" id="info" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">Bonjour !</div>
+    </div>
+  </div>
+</div>
+`;
+---
+<Base title="Brancher Bootstrap">
+  <h1>Brancher Bootstrap et lire sa documentation</h1>
+  <p class="lead">Trois méthodes pour ajouter Bootstrap à un projet ; le contexte du projet décide laquelle choisir.</p>
+
+  <h2>Trois méthodes</h2>
+  <ul>
+    <li><strong>CDN</strong> : on met un lien vers des fichiers hébergés par un tiers. Rapide, parfait pour une maquette jetable, mais dépend d'un serveur extérieur.</li>
+    <li><strong>Fichiers locaux</strong> : on télécharge les fichiers compilés. Pas d'outil à installer.</li>
+    <li><strong>npm avec Sass</strong> : on installe le paquet et on compile soi-même. C'est la voie d'un vrai projet avec une charte graphique à respecter.</li>
+  </ul>
+
+  <h2>Le CDN en deux balises</h2>
+  <pre><code>&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+  <p>Le <code>link</code> va dans le <code>&lt;head&gt;</code>, le <code>script</code> tout en bas, juste avant <code>&lt;/body&gt;</code>.</p>
+
+  <h2>Le fichier « bundle » : la panne numéro un</h2>
+  <p><code>bootstrap.bundle.min.js</code> contient le JavaScript de Bootstrap <em>et</em> Popper, une petite bibliothèque qui positionne les éléments flottants (infobulles, menus déroulants). Sans lui, les composants interactifs ne répondent pas, sans aucune erreur visible.</p>
+  <p>Même code, deux aperçus : dans le premier le JavaScript de Bootstrap est chargé, dans le second non. Clique sur le bouton de chacun.</p>
+  <LiveEditor initial={modal} label="Avec le JavaScript de Bootstrap : la modale s'ouvre" height={260} />
+  <LiveEditor initial={modal} label="Sans le JavaScript de Bootstrap : le bouton reste inerte" height={260} js={false} />
+
+  <h2>Lire la documentation</h2>
+  <p>Le réflexe : j'ai un besoin, je cherche dans la doc, je copie l'exemple, je l'adapte. Une page de composant a toujours la même forme : description, exemples copiables, variantes, puis les classes CSS et les options JavaScript. Sur <a href="https://getbootstrap.com/docs/5.3/">getbootstrap.com/docs/5.3</a>, la touche <code>/</code> place le curseur dans la recherche.</p>
+</Base>
+
+<style>
+  pre { background: var(--code-bg); color: var(--code-ink); padding: 16px; border-radius: 12px; overflow-x: auto; }
+  pre code { background: none; color: inherit; font-size: 15px; }
+</style>

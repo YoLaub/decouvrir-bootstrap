@@ -1,0 +1,63 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const navbar = `<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Agence</a>
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+            aria-controls="menuPrincipal" aria-expanded="false" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="menuPrincipal">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link active" href="#">Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Projets</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+const card = (n: number) => `    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Carte ${n}</h5>
+          <p class="card-text">${n % 2 ? "Un texte court." : "Un texte nettement plus long pour que les hauteurs soient inégales entre les cartes de la même ligne."}</p>
+          <a href="#" class="btn btn-primary">Voir</a>
+        </div>
+      </div>
+    </div>`;
+const cards = `<div class="container py-3">
+  <div class="row g-3">
+${[1, 2, 3, 4, 5, 6].map(card).join("\n")}
+  </div>
+</div>
+`;
+const dark = `<div data-bs-theme="dark" class="p-4 bg-body text-body">
+  <h5>Mode sombre</h5>
+  <p>Un seul attribut, <code>data-bs-theme="dark"</code>, sur ce conteneur.</p>
+  <button class="btn btn-outline-light">Bouton</button>
+</div>
+`;
+---
+<Base title="Composants">
+  <h1>Un composant est un bloc HTML à lire et adapter</h1>
+  <p class="lead">On ne les apprend pas par cœur : on les copie depuis la doc, puis on les modifie.</p>
+
+  <h2>La navbar et son menu burger</h2>
+  <p>Le bouton burger porte <code>data-bs-target="#menuPrincipal"</code> ; la zone du menu porte <code>id="menuPrincipal"</code> et les classes <code>collapse navbar-collapse</code>. Le clic relie les deux. <code>navbar-expand-lg</code> : sous 992 px, menu en burger ; au-dessus, menu déplié. Réduis l'aperçu à « Mobile » et clique sur le burger.</p>
+  <LiveEditor initial={navbar} widths height={260} />
+
+  <h2>Cartes dans une grille</h2>
+  <p>Le motif classique : une <code>row</code>, et dans chaque <code>col-md-4</code> une <code>card</code>. Sur mobile les colonnes s'empilent, donc les cartes aussi. <code>h-100</code> force toutes les cartes d'une ligne à la même hauteur : retire-le et compare.</p>
+  <LiveEditor initial={cards} widths height={520} />
+
+  <h2>Composants interactifs</h2>
+  <p>Fenêtre modale, menu déroulant, notification « toast », panneau latéral, accordéon : deux voies. Par attributs <code>data-bs-*</code>, sans une ligne de JavaScript (exemple de la page Brancher Bootstrap). Ou par l'API JavaScript, par exemple <code>new bootstrap.Modal(element).show()</code>. Dans les deux cas, le fichier bundle doit être chargé. Une modale morte trahit presque toujours un JavaScript non chargé.</p>
+
+  <h2>Le mode sombre</h2>
+  <p>Nouveauté de la 5.3 : l'attribut <code>data-bs-theme="dark"</code> sur <code>&lt;html&gt;</code> ou sur n'importe quel conteneur bascule tout ce qu'il contient en palette sombre.</p>
+  <LiveEditor initial={dark} height={220} />
+</Base>

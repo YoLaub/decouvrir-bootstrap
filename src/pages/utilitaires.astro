@@ -1,0 +1,38 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const spacing = `<div class="p-3 mb-3 bg-light border">p-3 : marge intérieure niveau 3</div>
+<div class="px-5 py-2 mb-3 bg-light border">px-5 py-2</div>
+<div class="mt-4 mx-auto bg-light border text-center" style="width:240px">
+  mt-4 mx-auto : centré
+</div>
+`;
+const colors = `<div class="d-flex gap-2 flex-wrap p-3">
+  <span class="badge text-bg-primary">primary</span>
+  <span class="badge text-bg-secondary">secondary</span>
+  <span class="badge text-bg-success">success</span>
+  <span class="badge text-bg-danger">danger</span>
+  <span class="badge text-bg-warning">warning</span>
+  <span class="badge text-bg-info">info</span>
+</div>
+<p class="p-3 d-none d-md-block text-success">Visible à partir de la tablette (md).</p>
+`;
+---
+<Base title="Classes utilitaires">
+  <h1>Les classes utilitaires évitent d'ouvrir un fichier CSS</h1>
+  <p class="lead">Une classe utilitaire fait une seule chose : une marge, une couleur, un alignement. On les combine.</p>
+
+  <h2>Espacement : propriété, côté, taille</h2>
+  <p>La syntaxe se lit toujours pareil : <code>m</code> (marge extérieure) ou <code>p</code> (marge intérieure), puis le côté (<code>t</code> haut, <code>b</code> bas, <code>s</code> gauche, <code>e</code> droite, <code>x</code> gauche et droite, <code>y</code> haut et bas, ou rien pour les quatre), un point de rupture optionnel, puis la taille de 0 à 5 ou <code>auto</code>. Exemple : <code>px-md-5</code>.</p>
+  <p>L'échelle : niveau 0 = 0, 1 = 0,25 rem, 2 = 0,5 rem, 3 = 1 rem, 4 = 1,5 rem, 5 = 3 rem. Change les niveaux et observe.</p>
+  <LiveEditor initial={spacing} height={260} />
+
+  <h2>Les noms de couleur sont des rôles</h2>
+  <p><code>primary</code>, <code>danger</code>, <code>success</code>… sont des rôles (l'action principale, le danger, la réussite), pas des couleurs. On peut redéfinir ce que « primary » veut dire (voir la page Personnaliser) et tout le site suit.</p>
+  <p>Les classes d'affichage se déclinent par écran : <code>d-none d-md-block</code> = masqué sur mobile, affiché dès la tablette, sans écrire de media query. Passe l'aperçu en largeur « Mobile » pour voir la différence.</p>
+  <LiveEditor initial={colors} widths height={240} />
+
+  <h2>Le garde-fou</h2>
+  <p>Les utilitaires servent l'ajustement ponctuel. Si le même paquet de classes se répète trois fois, ou porte un sens métier (« carte produit »), c'est le signe qu'il faut une vraie classe CSS ou un composant réutilisable.</p>
+</Base>

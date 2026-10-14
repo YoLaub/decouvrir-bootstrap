@@ -1,0 +1,47 @@
+---
+import Base from "../layouts/Base.astro";
+import LiveEditor from "../components/LiveEditor.astro";
+
+const start = `<div class="container py-3">
+  <div class="row">
+    <div class="col">Bloc 1</div>
+    <div class="col">Bloc 2</div>
+    <div class="col">Bloc 3</div>
+    <div class="col">Bloc 4</div>
+  </div>
+</div>
+`;
+---
+<Base title="Teste tes acquis">
+  <h1>Teste tes acquis</h1>
+  <p class="lead">Quatre questions, une par compétence. Ce n'est pas noté : c'est pour toi. Essaie d'abord, ouvre la correction ensuite.</p>
+
+  <h2>1. Brancher et diagnostiquer</h2>
+  <p>Ta modale ne s'ouvre pas. Quelles sont les trois vérifications, dans l'ordre ?</p>
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Le script de Bootstrap est-il bien présent ? Est-il en bas de page, après le contenu ? Est-ce bien la version « bundle » (avec Popper) ? Citer aussi <code>data-bs-toggle</code> / <code>data-bs-target</code> est un plus.</p>
+  </details>
+
+  <h2>2. La grille</h2>
+  <p>Modifie les classes pour obtenir : 4 blocs empilés sur mobile, 2 par ligne à partir de <code>md</code>, 4 sur une seule ligne à partir de <code>xl</code>. Ajoute une gouttière moyenne, sans écrire de CSS.</p>
+  <LiveEditor initial={start} widths height={300} />
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>La structure <code>container &gt; row &gt; col</code>, des classes du type <code>col-12 col-md-6 col-xl-3</code>, une gouttière avec <code>g-*</code> sur la <code>row</code> (pas des marges à la main), et le bon comportement aux trois largeurs.</p>
+  </details>
+
+  <h2>3. Composants et utilitaires</h2>
+  <p>Ajoute à une page une navbar qui passe en burger sous <code>lg</code> et un bouton qui ouvre une modale. Espace le tout avec des classes utilitaires. Pars de la doc (page Composants du cours, ou getbootstrap.com).</p>
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Le burger ouvre et ferme le menu, la modale s'ouvre vraiment, les espacements sont faits avec <code>m-*</code> / <code>p-*</code>, et aucune règle CSS n'est écrite à la main.</p>
+  </details>
+
+  <h2>4. Personnaliser et décider</h2>
+  <p>Un collègue a écrit <code>.btn-primary &#123; background-color: green !important; &#125;</code>. Qu'est-ce qui ne va pas, et que ferais-tu à la place ? Pour un tableau de bord interne à livrer en quatre jours, choisirais-tu Bootstrap ? Pourquoi ?</p>
+  <details>
+    <summary>Ce qui valide la réponse</summary>
+    <p>Reconnaître la lutte au <code>!important</code> contre le framework et proposer une surcharge de variables dans un fichier chargé après Bootstrap (ou les variables Sass avant l'import). Pour le tableau de bord : oui, le délai court, l'absence de design sur mesure et les composants prêts justifient Bootstrap. La justification compte plus que le mot.</p>
+  </details>
+</Base>
