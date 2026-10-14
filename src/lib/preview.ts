@@ -5,9 +5,12 @@ export interface PreviewOptions {
   css?: string;
   /** Load the JS bundle (Popper included). Defaults to true. */
   js?: boolean;
+  /** The learner writes the whole document and wires Bootstrap themselves. */
+  raw?: boolean;
 }
 
-export function buildPreviewDoc(html: string, { assetBase, css = "", js = true }: PreviewOptions): string {
+export function buildPreviewDoc(html: string, { assetBase, css = "", js = true, raw = false }: PreviewOptions): string {
+  if (raw) return html;
   return `<!doctype html>
 <html lang="fr">
 <head>

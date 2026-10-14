@@ -34,3 +34,10 @@ describe("buildPreviewDoc", () => {
     expect(buildPreviewDoc("", { ...opts, js: false })).not.toContain("bootstrap.bundle.min.js");
   });
 });
+
+describe("buildPreviewDoc raw mode", () => {
+  it("returns the learner document untouched so they wire Bootstrap themselves", () => {
+    const html = "<!doctype html><html><head></head><body><p>x</p></body></html>";
+    expect(buildPreviewDoc(html, { assetBase: "/v/", raw: true })).toBe(html);
+  });
+});
