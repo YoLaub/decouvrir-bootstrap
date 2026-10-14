@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Notes from "../../components/Notes.astro";
+const initial = `<div class="container">
+  <div class="col-4">Sidebar</div>
+  <div class="row">
+    <div class="col-md-6 col-lg-8">Article</div>
+    <div class="col-md-6 col-lg-8">Aside</div>
+  </div>
+  <button data-bs-toggle="modal" data-target="#info">Infos</button>
+</div>
+<div class="modal" id="info">
+  <div class="modal-dialog"><div class="modal-content"><div class="modal-body">Infos</div></div></div>
+</div>
+`;
+---
+<Base title="Jeu des erreurs">
+  <h1>Jeu des erreurs</h1>
+  <p class="lead">Ce code Bootstrap est cassé. Trouve toutes les erreurs et nomme-les précisément. Un point par erreur bien nommée.</p>
+  <LiveEditor {initial} widths height={360} label="Code à diagnostiquer : tu peux le modifier et tester" />
+  <Notes id="erreurs" label="Mes erreurs trouvées" rows={8} />
+</Base>

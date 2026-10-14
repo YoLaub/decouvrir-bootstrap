@@ -1,14 +1,14 @@
 ---
-interface Props { initial: string; css?: string; label?: string; widths?: boolean; height?: number; js?: boolean }
-const { initial, css, label = "Modifie le HTML, l'aperçu se met à jour", widths = false, height = 320, js = true } = Astro.props;
+interface Props { initial: string; css?: string; label?: string; widths?: boolean; height?: number; js?: boolean; raw?: boolean }
+const { initial, css, label = "Modifie le HTML, l'aperçu se met à jour", widths = false, height = 320, js = true, raw = false } = Astro.props;
 const assetBase = `${import.meta.env.BASE_URL}vendor/`;
 ---
-<figure class="editor" data-live-editor data-asset-base={assetBase} data-js={String(js)}>
+<figure class="editor" data-live-editor data-asset-base={assetBase} data-js={String(js)} data-raw={String(raw)}>
   <figcaption>{label}</figcaption>
   <div class={`panes${widths ? " stacked" : ""}`}>
     <div class="pane sources">
       <div class="file">
-        <label>HTML (ce que tu écris)</label>
+        <label>{raw ? "Document HTML complet" : "HTML (ce que tu écris)"}</label>
         <textarea class="html" spellcheck="false" aria-label="Code HTML">{initial}</textarea>
       </div>
       {css !== undefined && (
@@ -41,10 +41,11 @@ const assetBase = `${import.meta.env.BASE_URL}vendor/`;
     const frame = root.querySelector<HTMLIFrameElement>("iframe")!;
     const assetBase = root.dataset.assetBase!;
     const js = root.dataset.js !== "false";
+    const raw = root.dataset.raw === "true";
 
     let timer: number | undefined;
     const run = () => {
-      frame.srcdoc = buildPreviewDoc(html.value, { assetBase, css: css?.value ?? "", js });
+      frame.srcdoc = buildPreviewDoc(html.value, { assetBase, css: css?.value ?? "", js, raw });
     };
     const schedule = () => { window.clearTimeout(timer); timer = window.setTimeout(run, 200); };
 

@@ -1,0 +1,64 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+import Notes from "../../components/Notes.astro";
+const base = import.meta.env.BASE_URL;
+const origin = "https://yolaub.github.io";
+const start = `<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sprint Agence</title>
+  <!-- Branche Bootstrap ici -->
+</head>
+<body class="p-4">
+  <h1>Sprint Agence</h1>
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#info">En savoir plus</button>
+
+  <div class="modal fade" id="info" tabindex="-1">
+    <div class="modal-dialog"><div class="modal-content">
+      <div class="modal-body">Si tu lis ceci dans une fenêtre, le JavaScript de Bootstrap est branché.</div>
+    </div></div>
+  </div>
+  <!-- Branche le JavaScript ici -->
+</body>
+</html>
+`;
+---
+<Base title="Manche 0">
+  <h1>Manche 0 : chasse dans la doc</h1>
+  <p class="lead">Deux étapes : brancher Bootstrap 5.3, puis retrouver six besoins dans la documentation officielle.</p>
+  <Chrono minutes={15} />
+
+  <h2>Étape 1 : brancher Bootstrap</h2>
+  <p>Ajoute Bootstrap 5.3 avec le CSS dans le <code>head</code> et le JavaScript « bundle » juste avant la fin du <code>body</code>. Tu as réussi quand le bouton est bleu, puis qu'un clic ouvre la fenêtre.</p>
+  <p>Deux adresses possibles, au choix, si le réseau bloque l'une d'elles :</p>
+  <ul>
+    <li>CDN : <code>https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css</code> et <code>…/dist/js/bootstrap.bundle.min.js</code></li>
+    <li>Ce site : <code>{origin}{base}vendor/bootstrap.min.css</code> et <code>{origin}{base}vendor/bootstrap.bundle.min.js</code></li>
+  </ul>
+  <LiveEditor initial={start} raw height={360} label="Document complet : à toi de brancher Bootstrap" />
+
+  <h2>Étape 2 : six besoins, six noms</h2>
+  <p>Sans aide de tes voisins, trouve dans <a href="https://getbootstrap.com/docs/5.3/" target="_blank" rel="noopener">getbootstrap.com</a> la classe ou le composant exact pour chacun. Note le nom exact.</p>
+  <ol>
+    <li>Centrer horizontalement un bloc de largeur fixe.</li>
+    <li>Cacher un élément sur mobile, l'afficher à partir de la tablette.</li>
+    <li>Mettre un padding vertical « niveau 5 » seulement à partir de <code>lg</code>.</li>
+    <li>Un bandeau d'avertissement jaune qu'on peut refermer.</li>
+    <li>Coller un bouton à droite d'un champ de saisie.</li>
+    <li>Faire qu'une carte prenne toute la hauteur disponible dans sa colonne.</li>
+  </ol>
+  <Notes id="besoins" label="Mes six réponses" rows={8} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Les pages utiles : Utilities → Spacing, Display, Sizing ; Components → Alerts ; Forms → Input group. Pour la centrer, pense aux marges automatiques.</p>
+  </details>
+  <details>
+    <summary>Défi en plus</summary>
+    <p>Mesure le poids de <code>bootstrap.min.css</code> avec les outils de ton navigateur (onglet Réseau), et note-le.</p>
+  </details>
+</Base>

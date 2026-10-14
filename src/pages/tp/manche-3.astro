@@ -1,0 +1,59 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+import Notes from "../../components/Notes.astro";
+const initial = `<nav class="navbar bg-body-tertiary px-3">
+  <a class="navbar-brand" href="#">Agence</a>
+  <a class="btn btn-primary" href="#">Contact</a>
+</nav>
+<div class="container py-4">
+  <h1 class="text-primary">Bienvenue</h1>
+  <p>Une <a href="#">page vitrine</a> avec une carte et un bouton.</p>
+  <div class="card" style="max-width: 20rem">
+    <div class="card-body">
+      <h5 class="card-title">Notre offre</h5>
+      <button class="btn btn-primary">En savoir plus</button>
+    </div>
+  </div>
+</div>
+`;
+const css = `/* Chargé après Bootstrap. Ta charte ici. */
+`;
+---
+<Base title="Manche 3">
+  <h1>Manche 3 : le carton de crise</h1>
+  <p class="lead">Le client vient de changer d'avis.</p>
+
+  <aside class="carton">
+    <h2>Nouvelle charte</h2>
+    <ul>
+      <li>Couleur principale : rouge brique <code>#c0392b</code></li>
+      <li>Police : <code>Georgia, serif</code></li>
+      <li>Coins : plus aucun arrondi</li>
+    </ul>
+  </aside>
+
+  <h2>Partie 1 : appliquer la charte (12 min)</h2>
+  <Chrono minutes={12} />
+  <p>Applique-la proprement : sans toucher au fichier de Bootstrap, et sans une forêt de <code>!important</code>. Tu écris dans le volet CSS, chargé après Bootstrap.</p>
+  <LiveEditor {initial} {css} height={400} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Bootstrap expose ses réglages sous forme de variables CSS qui commencent par <code>--bs-</code>, à redéfinir sur <code>:root</code>. Si un changement ne se voit pas, c'est que la couleur d'un bouton lit d'autres variables : inspecte le bouton dans l'onglet Éléments de ton navigateur pour trouver lesquelles.</p>
+  </details>
+
+  <h2>Partie 2 : une question (8 min)</h2>
+  <Chrono minutes={8} />
+  <blockquote>
+    Le client veut aussi une page « statut serveur » en temps réel, très graphique, avec une identité visuelle forte et son propre design system déjà défini par un studio. Recommandes-tu d'utiliser Bootstrap pour cette page ? Justifie en quatre ou cinq lignes.
+  </blockquote>
+  <Notes id="statut-serveur" label="Ma réponse" rows={7} />
+</Base>
+
+<style>
+  .carton { margin: 16px 0 8px; padding: 8px 24px 16px; border: 3px solid #c0392b; border-radius: 0; background: #fff; font-family: Georgia, serif; }
+  .carton h2 { margin-top: 12px; color: #c0392b; }
+  blockquote { margin: 12px 0; padding: 12px 20px; border-left: 4px solid var(--accent); background: var(--panel); }
+</style>

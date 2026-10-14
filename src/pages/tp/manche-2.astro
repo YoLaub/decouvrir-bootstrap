@@ -1,0 +1,54 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+const initial = `<!-- Colle ici ton squelette de la manche 1, puis habille-le -->
+`;
+---
+<Base title="Manche 2">
+  <h1>Manche 2 : l'habillage</h1>
+  <p class="lead">À partir de ton squelette, intègre quatre éléments tirés de la documentation.</p>
+  <Chrono minutes={35} />
+
+  <h2>La maquette</h2>
+  <div class="mock">
+    <div class="bar">Navbar <span>(burger sous <code>lg</code>)</span></div>
+    <div class="cards"><div>carte</div><div>carte</div><div>carte</div><div>carte</div><div>carte</div><div>carte</div></div>
+    <div class="form"><div>Nom</div><div>Email</div><div class="tall">Message</div><div class="btnx">Envoyer</div></div>
+    <div class="more">« En savoir plus » → ouvre une fenêtre (modale)</div>
+  </div>
+
+  <h2>À intégrer</h2>
+  <ul>
+    <li>Une barre de navigation qui passe en burger sous <code>lg</code>.</li>
+    <li>Une grille de six cartes identiques, de même hauteur.</li>
+    <li>Un formulaire de contact : nom, email, message, bouton.</li>
+    <li>Un bouton « En savoir plus » qui ouvre une modale.</li>
+  </ul>
+  <p>Tout vient de la doc : copie, puis adapte. Les ajustements se font uniquement avec des classes utilitaires. Si tu ouvres un fichier CSS pour autre chose qu'une image de fond, c'est perdu.</p>
+  <LiveEditor {initial} widths height={620} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Pages de la doc : Components → Navbar, Card, Modal ; Forms → Overview. Pour égaliser les cartes, regarde les utilitaires de hauteur.</p>
+  </details>
+  <details>
+    <summary>Défi en plus</summary>
+    <p>Impose le mode sombre avec <code>data-bs-theme</code>, et un bouton qui bascule en JavaScript.</p>
+  </details>
+
+  <p class="lead">Fini ? Garde ta page de côté et attends le signal du formateur pour la suite.</p>
+</Base>
+
+<style>
+  .mock { max-width: 560px; padding: 10px; border: 2px dashed var(--line); border-radius: 10px; background: var(--panel); font-size: 14px; }
+  .mock > div { margin-bottom: 8px; }
+  .bar { background: #dcd2ee; padding: 8px; }
+  .bar span { color: var(--muted); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cards div, .form div { background: #eceef5; border: 1px solid #c9cde0; padding: 8px; text-align: center; }
+  .form { display: grid; gap: 6px; }
+  .form .tall { padding: 22px 8px; }
+  .form .btnx { background: #dcd2ee; }
+  .more { color: var(--muted); }
+</style>

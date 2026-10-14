@@ -1,0 +1,55 @@
+---
+import Base from "../../layouts/Base.astro";
+import LiveEditor from "../../components/LiveEditor.astro";
+import Chrono from "../../components/Chrono.astro";
+const initial = `<!-- Ton squelette ici : container, row, col -->
+`;
+---
+<Base title="Manche 1">
+  <h1>Manche 1 : le squelette</h1>
+  <p class="lead">Reproduis ce plan uniquement avec la grille. Aucun CSS de positionnement.</p>
+  <Chrono minutes={25} />
+
+  <h2>Le plan à reproduire</h2>
+  <div class="wires">
+    <figure>
+      <figcaption>Bureau</figcaption>
+      <div class="w"><div class="box head">En-tête pleine largeur</div>
+        <div class="rowx"><div class="box">1</div><div class="box">2</div><div class="box">3</div></div>
+        <div class="rowx"><div class="box" style="flex:1">1/3</div><div class="box" style="flex:2">2/3</div></div>
+      </div>
+    </figure>
+    <figure>
+      <figcaption>Mobile : tout s'empile</figcaption>
+      <div class="w narrow"><div class="box head">En-tête</div>
+        <div class="box">1</div><div class="box">2</div><div class="box">3</div>
+        <div class="box">1/3</div><div class="box">2/3</div>
+      </div>
+    </figure>
+  </div>
+
+  <h2>La règle</h2>
+  <p>Utilise <code>container</code>, <code>row</code> et <code>col</code>. Interdit : écrire du CSS de positionnement toi-même (<code>width</code>, <code>float</code>, un <code>flex</code> maison). Ça doit s'empiler proprement quand tu réduis la fenêtre : teste avec les boutons de largeur.</p>
+  <LiveEditor {initial} widths height={520} />
+
+  <details>
+    <summary>Coup de pouce</summary>
+    <p>Pages utiles : Layout → Grid system, Gutters. L'espace entre colonnes se règle avec <code>g-*</code> sur la <code>row</code>, pas avec des marges à la main.</p>
+  </details>
+  <details>
+    <summary>Défi en plus</summary>
+    <p>Ajoute une quatrième zone décalée avec <code>offset</code>, et impose un alignement vertical.</p>
+  </details>
+</Base>
+
+<style>
+  .wires { display: flex; gap: 32px; flex-wrap: wrap; align-items: flex-start; }
+  figure { margin: 0; }
+  figcaption { color: var(--muted); font-size: 15px; margin-bottom: 6px; }
+  .w { width: 440px; max-width: 100%; padding: 10px; border: 2px dashed var(--line); border-radius: 10px; background: var(--panel); }
+  .w.narrow { width: 160px; }
+  .box { background: #eceef5; border: 1px solid #c9cde0; padding: 8px; text-align: center; font-size: 14px; margin-bottom: 8px; }
+  .head { background: #dcd2ee; }
+  .rowx { display: flex; gap: 8px; }
+  .rowx .box { flex: 1; }
+</style>

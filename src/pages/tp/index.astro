@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+const base = import.meta.env.BASE_URL;
+---
+<Base title="Sprint Agence">
+  <h1>Sprint Agence : une page client en quatre manches</h1>
+  <p class="lead">Une agence reçoit un brief client. Chaque manche répond à une exigence, avec son chrono. Le formateur annonce le départ de chaque manche.</p>
+
+  <h2>Le brief</h2>
+  <p>Le client veut une page vitrine : une page qui se réorganise toute seule du mobile au grand écran, avec une barre de navigation, des cartes, un formulaire de contact et une fenêtre d'information. Il changera peut-être d'avis en route.</p>
+
+  <h2>Comment ça marche</h2>
+  <ul>
+    <li>Tu travailles dans l'éditeur de chaque page, ou sur ton poste avec le <a href={`${base}tp/sprint-agence-start.html`} download>fichier de départ</a>, comme tu préfères.</li>
+    <li>Le chrono se lance quand tu cliques. Le formateur garde le sien.</li>
+    <li>Tes notes sont enregistrées dans ton navigateur. Le bouton « Copier mes notes » sert à les envoyer au formateur.</li>
+    <li>Le score est une émulation, pas une note. Chaque manche à zéro signale une notion à reprendre avant la fin de la journée.</li>
+  </ul>
+
+  <p><a class="go" href={`${base}tp/manche-0`}>Manche 0 : Chasse dans la doc →</a></p>
+  <p class="lead">Les manches suivantes s'ouvrent l'une après l'autre. La dernière te sera donnée en séance.</p>
+</Base>
+
+<style>
+  .go { display: inline-block; padding: 12px 20px; border: 2px solid var(--accent); border-radius: 10px; font-weight: 700; color: var(--ink); text-decoration: none; }
+  .go:hover { background: #efe9f8; }
+</style>
