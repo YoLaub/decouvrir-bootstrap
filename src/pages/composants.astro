@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import LiveEditor from "../components/LiveEditor.astro";
+import { carouselExample } from "../lib/carousel";
 
 const navbar = `<nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -35,6 +36,7 @@ ${[1, 2, 3, 4, 5, 6].map(card).join("\n")}
   </div>
 </div>
 `;
+const carousel = carouselExample(import.meta.env.BASE_URL);
 const dark = `<div data-bs-theme="dark" class="p-4 bg-body text-body">
   <h5>Mode sombre</h5>
   <p>Un seul attribut, <code>data-bs-theme="dark"</code>, sur ce conteneur.</p>
@@ -53,6 +55,12 @@ const dark = `<div data-bs-theme="dark" class="p-4 bg-body text-body">
   <h2>Cartes dans une grille</h2>
   <p>Le motif classique : une <code>row</code>, et dans chaque <code>col-md-4</code> une <code>card</code>. Sur mobile les colonnes s'empilent, donc les cartes aussi. <code>h-100</code> force toutes les cartes d'une ligne à la même hauteur : retire-le et compare.</p>
   <LiveEditor initial={cards} widths height={520} />
+
+  <h2>Le carrousel</h2>
+  <p>Un carrousel fait défiler des diapositives. Trois éléments sont à relier : la zone <code>carousel slide</code>, qui porte un <code>id</code> ; le conteneur <code>carousel-inner</code>, qui contient les <code>carousel-item</code> ; et les boutons précédent et suivant, qui visent cet <code>id</code> avec <code>data-bs-target</code> et <code>data-bs-slide</code>. Les petits points du bas sont des boutons <code>data-bs-slide-to</code>.</p>
+  <LiveEditor initial={carousel} widths height={420} />
+  <p><strong>À toi :</strong> retire la classe <code>active</code> de la première diapositive : le carrousel reste vide, c'est l'oubli le plus fréquent. Remets-la, puis retire <code>w-100</code> d'une image et passe l'aperçu en « Mobile » : l'image déborde. Enfin, change l'<code>id</code> de la zone sans toucher aux boutons : les flèches ne répondent plus, parce que leur <code>data-bs-target</code> ne vise plus rien.</p>
+  <p>Pour un défilement automatique, ajoute <code>data-bs-ride="carousel"</code> sur la zone principale. Comme tous les composants interactifs, le carrousel a besoin du fichier bundle.</p>
 
   <h2>Composants interactifs</h2>
   <p>Fenêtre modale, menu déroulant, notification « toast », panneau latéral, accordéon : deux voies. Par attributs <code>data-bs-*</code>, sans une ligne de JavaScript (exemple de la page Brancher Bootstrap). Ou par l'API JavaScript, par exemple <code>new bootstrap.Modal(element).show()</code>. Dans les deux cas, le fichier bundle doit être chargé. Une modale morte trahit presque toujours un JavaScript non chargé.</p>
